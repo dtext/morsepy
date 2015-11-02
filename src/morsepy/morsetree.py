@@ -1,5 +1,6 @@
 __author__ = 'dt'
 
+
 class Leaf:
     def __init__(self, val):
         self.val = val
@@ -10,7 +11,11 @@ class Leaf:
         self.left = Leaf(left)
         self.right = Leaf(right)
 
+
 class MorseTree:
+    """
+    Objects of this class represent a morse tree. A dict would be faster and easier, but this is fun.
+    """
     def __init__(self):
         root = Leaf(None)
         root.append('E', 'T')
@@ -38,7 +43,7 @@ class MorseTree:
             return leaf.val
         elif seq[0] == '.':
             return self.__decode_rec(seq[1:], leaf.left)
-        else:
+        else:  # if seq[0] == '-'
             return self.__decode_rec(seq[1:], leaf.right)
 
     def decode(self, seq):
@@ -53,6 +58,3 @@ class MorseTree:
                 result += self.decode(seq)
             result += ' '
         return result
-
-m = MorseTree()
-print(m.parse("... --- .../... --- ..."))
