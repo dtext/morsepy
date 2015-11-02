@@ -14,8 +14,11 @@ class Leaf:
 
 class MorseTree:
     """
-    Objects of this class represent a morse tree. A dict would be faster and easier, but this is fun.
+    Objects of this class represent a morse tree (only letters).
+    A dict would be faster, easier and generally better, but this is more fun.
+    For a more optimal solution, look at the tests.
     """
+
     def __init__(self):
         root = Leaf(None)
         root.append('E', 'T')
@@ -57,4 +60,20 @@ class MorseTree:
             for seq in word:
                 result += self.decode(seq)
             result += ' '
-        return result
+        return result[:-1]
+
+    def encode(self, char):
+        def find(c, tree, path):
+            if tree is None:
+                return ""
+            elif tree.val == c:
+                return path
+
+            left = find(c, tree.left, path + ".")
+            if left != "":
+                return left
+            right = find(c, tree.right, path + "-")
+            if right != "":
+                return right
+            return ""
+        return find(char, self.root, "")
